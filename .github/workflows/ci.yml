@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout repo
-      - uses: docker/setup-buildx-action@v0.5.0
+      - uses: docker/setup-buildx-action@v3
         name: Setup QEMU
       - uses: docker/setup-buildx-action@v3
         name: Setup docker Buildx
