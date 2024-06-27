@@ -28,7 +28,7 @@ jobs:
           load: true                          #to docker runtime
           tags: |
             yt-downloader:latest
-          outputs: type=Docker,dest=/temp/yt-downloader.tar
+          outputs: type=docker,dest=/temp/yt-downloader.tar
 
       - name: Upload Docker
         uses: actions/upload-artifact@v4
