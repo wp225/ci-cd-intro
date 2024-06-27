@@ -19,18 +19,18 @@ jobs:
       - uses: docker/setup-buildx-action@v3   #Buildx for building docker images
         name: Setup docker Buildx
 
-      - uses: docker/build-push-action@v6     #Build images on push
-        name: Build and Export Docker Image
-        with:
-          tags: yt-downloader
-          outputs: type=docker,dest=/tmp/yt-downloader.tar
-
+      - name: Build and Save Docker Image
+        run: |
+          
+          docker build -t yt-downloader .
+          mkdir -p temp/
+          docker save yt-downloader > temp/yt-downloader.tar
 
       - name: Upload Docker
         uses: actions/upload-artifact@v4
         with:
           name: yt-downloader
-          path: /temp/yt-downloader.tar
+          path: temp
 
       - run: docker images
         name: Display docker images
@@ -44,7 +44,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: yt-downloader
-          path: /temp/
+          path: temp/
 
       - name: Load Docker Image
         run:  |
