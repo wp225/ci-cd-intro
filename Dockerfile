@@ -15,4 +15,4 @@ RUN curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o 
 RUN chmod a+x /usr/local/bin/yt-dlp
 
 EXPOSE 5000
-ENTRYPOINT ["python3", "app.py"]
+CMD ["python3", "app.py","pytest"]
