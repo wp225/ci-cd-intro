@@ -22,13 +22,9 @@ jobs:
       - uses: docker/build-push-action@v6     #Build images on push
         name: Build and Export Docker Image
         with:
-          context: .
-          file: ./Dockerfile
-          push: false                         #to push to dockerhub
-          load: true                          #to docker runtime
-          tags: |
-            yt-downloader:latest
-          outputs: type=docker,dest=/temp/yt-downloader.tar
+          tags: yt-downloader
+          outputs: type=docker,dest=/tmp/yt-downloader.tar
+
 
       - name: Upload Docker
         uses: actions/upload-artifact@v4
