@@ -38,5 +38,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout repo
-      - name: Run tests
-        run: python test_py                   #test key functionality
+
+      - name: Setup Python
+        run: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install Dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      - name: Runs Tests
+        run: |
+          source venv/bin/activate
+          pytest
