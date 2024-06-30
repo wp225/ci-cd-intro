@@ -1,0 +1,12 @@
+name: Continous Deployment
+on:
+  workflow_dispatch:
+    push:
+      branch:
+       - main
+jobs:
+  ContainerRegistry:
+    name: Load container to ECR
+    runs-on: ubuntu-latest
+    steps:
+      - uses:
