@@ -6,11 +6,15 @@ on:
       - main
 env:
   AWS_REGION: 'us-east-1'
+  
 jobs:
   ContainerRegistry:
     name: Load container to ECR
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        name: "Checkout repo"
+        
       - uses: aws-actions/configure-aws-credentials@v4
         name: "AWS configure"
         with:
@@ -19,7 +23,16 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
   
       - uses: aws-actions/amazon-ecr-login@v2
+        id: ecr-login
         name: "AWS ECR LOGIN"
+
+      - name: "Push to ECR"
+        env:
+          ECR_REGISTRY: ${{steps.ecr-login.outputs.registry}}
+          ECR_REPOSITORY: ci-cd-pipeline
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:test .
+          docker push  $ECR_REGISTRY/$ECR_REPOSITORY:test
         
 
 
